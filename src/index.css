@@ -1,0 +1,84 @@
+@import "normalize.css";
+
+:root {
+  --color-primary: #42c3ee;
+  --color-secondary: #e3f4f9;
+  --color-text: #595977;
+  --color-border: #42c3ee;
+
+  --color-background: #fff;
+  /* ... other colors ... */
+}
+
+body,
+#root {
+  margin: 0;
+  display: flex;
+  justify-content: center; /* horizontally center content */
+  align-items: center; /* vertically center content */
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.app-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+h1 {
+  font-size: 1.2rem;
+  line-height: 1.1;
+}
+
+.title-container {
+  margin-bottom: 8px;
+}
+
+.subtitle-container {
+  margin-bottom: 4px;
+}
+
+.helper-text {
+  font-size: 12px;
+  color: var(--color-text);
+}
+
+#map {
+  height: 180px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 15rem;
+}
+
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--color-secondary);
+  height: 0.2rem;
+}
+
+/******** Firefox ********/
+input[type="range"]::-moz-range-track {
+  background: var(--color-secondary);
+  height: 0.2rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  margin-top: -6px;
+  /* Centers thumb on the track */
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-secondary); /* height: 2rem;
+  width: 1rem; */
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-secondary);
+  /* background-color: var(--color-primary); */
+  /* height: 2rem;
+  width: 1rem; */
+}
