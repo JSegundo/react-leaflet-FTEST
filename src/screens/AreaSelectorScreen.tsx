@@ -7,6 +7,7 @@ import * as z from "zod"
 const AreaSelectorScreen = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
   const [radius, setradius] = useState<number>(200)
+  const [errors, seterrors] = useState({ lat: "", lng: "" })
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -46,6 +47,22 @@ const AreaSelectorScreen = () => {
       .max(180, "Longitude must be between -180 and 180."),
   })
 
+  const validateLocation = () => {
+    const result = formSchema.safeParse(location)
+    console.log("result", result)
+    console.log("formSchema: ", formSchema)
+    if (!result.success) {
+      seterrors({
+        lat:
+          result.error.errors.find((e) => e.path[0] === "lat")?.message || "",
+        lng:
+          result.error.errors.find((e) => e.path[0] === "lng")?.message || "",
+      })
+    } else {
+      seterrors({ lat: "", lng: "" })
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col gap-3 ">
@@ -58,6 +75,7 @@ const AreaSelectorScreen = () => {
             <article className="flex flex-col w-1/2">
               <p className="helper-text subtitle-container ">Latitude</p>
               <Input
+                type="number"
                 value={location.lat || ""}
                 onChange={(e) =>
                   setLocation((prev) => ({
@@ -65,12 +83,19 @@ const AreaSelectorScreen = () => {
                     lat: parseFloat(e.target.value),
                   }))
                 }
+                onBlur={validateLocation}
               />
+              {errors.lat && (
+                <div style={{ color: "red" }} className="my-1">
+                  {errors.lat}
+                </div>
+              )}
             </article>
 
             <article className="flex flex-col w-1/2">
-              <p className="helper-text subtitle-container ">Longitude</p>
+              <p className="helper-text subtitle-container">Longitude</p>
               <Input
+                type="number"
                 value={location.lng || ""}
                 onChange={(e) =>
                   setLocation((prev) => ({
@@ -78,7 +103,14 @@ const AreaSelectorScreen = () => {
                     lng: parseFloat(e.target.value),
                   }))
                 }
+                onBlur={validateLocation}
               />
+
+              {errors.lng && (
+                <div style={{ color: "red" }} className="my-1">
+                  {errors.lng}
+                </div>
+              )}
             </article>
           </div>
         </section>
