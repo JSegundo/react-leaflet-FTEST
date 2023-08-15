@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { useEffect, useState } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import axios from "axios"
 import { ICityData } from "@/screens/WeatherCityScreen"
 import { showError } from "@/utils/showNotification"
